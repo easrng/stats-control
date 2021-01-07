@@ -1,5 +1,5 @@
 // Create a class for the element
-let overrideDNT = localStorage.getItem("overrideDNT"), beaconURL=undefined;
+let overrideDNT = localStorage.getItem("overrideDNT"), beaconURL=undefined, site;
 class Stats extends HTMLElement {
   constructor() {
     super();
@@ -31,14 +31,20 @@ class Stats extends HTMLElement {
     if (h) try {
       beaconURL = new URL(h).href;
     } catch(e) {}
+    h=this.getAttribute("site");
+    site = undefined;
+    if (typeof h == "string" && h.length>0) try {
+      site = h;
+    } catch(e) {}
+    site
   }
 }
 // Define the new element
 customElements.define("stats-control", Stats);
-export default site => event => {
+export default event => {
   if (beaconURL&&((overrideDNT || navigator.doNotTrack) != "1"))
     navigator.sendBeacon(
       beaconURL,
-      JSON.stringify({ event, site })
+      JSON.stringify({ event, site: site||"" })
     );
-};
+  }
