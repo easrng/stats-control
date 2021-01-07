@@ -14,3 +14,9 @@ beacon("event-name")
 ```html
 <stats-control href="https://analytics-server/" site="site-name"></stats-control>
 ```
+
+<script type="module">
+import beacon from "https://easrng.github.io/stats-control/stats.js"
+beacon("page-load")
+</script>
+<stats-control href="https://collect.easrng.workers.dev/" site="stats-control"></stats-control>
